@@ -15,6 +15,11 @@ document.addEventListener("DOMContentLoaded", function() {
         });
     }
 
+    document.getElementById("answer-box").addEventListener("keydown", function(event) {
+        if (event.key === "Enter") {
+            checkAnswer();
+        }
+    })
     runGame("addition");
 });
 
@@ -25,6 +30,9 @@ document.addEventListener("DOMContentLoaded", function() {
 
 function runGame(gameType) {
 
+    document.getElementById("answer-box").value = "";
+    document.getElementById("answer-box". focus);
+
     //Create to random numbers between 1 and 25
     let num1 = Math.floor(Math.random() * 25) + 1;
     let num2 = Math.floor(Math.random() * 25) + 1;
@@ -34,7 +42,9 @@ function runGame(gameType) {
     } else if (gameType === "multiply") {
         displayMultiplyQuestion(num1, num2);
     } else if (gameType === "subtract") {
-        displaySubtractQuestion(num1, num2)
+        displaySubtractQuestion(num1, num2);
+    } else if (gameType === "division"){
+        displayDivisionQuestion(num1, num2);
     } else {
         alert(`Unknown game type: ${gameType}`);
         throw `Unknown game type: ${gameType}. Aborting!`;
@@ -80,6 +90,8 @@ function calculateCorrectAnswer() {
         return [operand1 * operand2, "multiply"];
     } else if (operator === "-") {
         return [operand1 - operand2, "subtract"];
+    } else if (operator === "÷" ) {
+        return[operand1 / operand2, "division"];
     } else {
         alert(`Unimplemented operator ${operator}`);
         throw `Unimplemented operator ${operator}. Aborting!`;
@@ -126,4 +138,15 @@ function displayMultiplyQuestion(operand1, operand2) {
     document.getElementById('operand2').textContent = operand2;
     document.getElementById('operator').textContent = "x";
 
+}
+
+function displayDivisionQuestion() {
+    let operand1, operand2;
+    do {
+        operand1 = Math.floor(Math.random() * 10) + 1; // Generate random whole numbers between 1 and 10
+        operand2 = Math.floor(Math.random() * 10) + 1;
+    } while (operand1 % operand2 !== 0); // Repeat until the division result is a whole number
+    document.getElementById('operand1').textContent = operand1;
+    document.getElementById('operand2').textContent = operand2;
+    document.getElementById('operator').textContent = "÷";
 }
