@@ -8,6 +8,8 @@ document.addEventListener("DOMContentLoaded", function() {
         button.addEventListener("click", function() {
             if (this.getAttribute("data-type") === "submit") {
                 checkAnswer();
+            } else if (this.getAttribute("data-type") === "random") {
+                runGame(getRandomGameType());
             } else {
                 let gameType = this.getAttribute("data-type");
                 runGame(gameType);
@@ -22,6 +24,15 @@ document.addEventListener("DOMContentLoaded", function() {
     })
     runGame("addition");
 });
+
+/** 
+ * Updated with a random game type to add more fun
+ */
+
+function getRandomGameType() {
+    let gameTypes = ["addition", "multiply", "subtract", "division"];
+    return gameTypes[Math.floor(Math.random() * gameTypes.length)];
+}
 
 /**
  * The main game "loop", called when the script is first loaded
@@ -150,3 +161,4 @@ function displayDivisionQuestion() {
     document.getElementById('operand2').textContent = operand2;
     document.getElementById('operator').textContent = "÷";
 }
+
